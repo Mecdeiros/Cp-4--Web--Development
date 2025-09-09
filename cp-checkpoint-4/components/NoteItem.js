@@ -1,29 +1,20 @@
-"use client";
-import { useRouter } from "next/navigation";
+'use client'
 
-export default function NoteItem({ note, onDeleteNote }) {
-  const router = useRouter();
+import Link from 'next/link'
+import { useNotes } from './NotesProvider'
+
+export default function NoteItem({ note }) {
+  const { deleteNote } = useNotes()
 
   return (
-    <li className="border rounded p-3 flex justify-between items-start">
-      <div>
-        <h3 className="font-bold">{note.title}</h3>
-        <p className="text-sm text-gray-500">{note.createdAt}</p>
+    <article style={{ border: '1px solid #ddd', padding: '0.5rem', margin: '0.5rem 0' }}>
+      <h3>{note.title}</h3>
+      <p>{note.content.slice(0, 50)}...</p>
+      <small>{new Date(note.createdAt).toLocaleString()}</small>
+      <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <Link href={`/notes/${note.id}`}>Detalhes</Link>
+        <button onClick={() => deleteNote(note.id)}>Excluir</button>
       </div>
-      <div className="space-x-2">
-        <button
-          onClick={() => router.push(`/notes/${note.id}`)}
-          className="text-blue-600"
-        >
-          Ver
-        </button>
-        <button
-          onClick={() => onDeleteNote(note.id)}
-          className="text-red-600"
-        >
-          Excluir
-        </button>
-      </div>
-    </li>
-  );
+    </article>
+  )
 }

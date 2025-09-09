@@ -1,13 +1,14 @@
-export default function NoteDetail({ note }) {
-  if (!note) {
-    return <p className="text-gray-500">Nota não encontrada.</p>;
-  }
+'use client'
 
+import Link from 'next/link'
+
+export default function NoteDetail({ note }) {
   return (
-    <div className="border rounded p-4">
-      <h1 className="text-xl font-bold">{note.title}</h1>
-      <p className="text-sm text-gray-500 mb-2">{note.createdAt}</p>
+    <div>
+      <Link href="/"><button>← Voltar</button></Link>
+      <h2>{note.title}</h2>
       <p>{note.content}</p>
+      <small>{new Date(note.createdAt).toLocaleString()}</small>
     </div>
-  );
+  )
 }

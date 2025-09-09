@@ -1,18 +1,24 @@
-export const metadata = {
-  title: "Notes App",
-  description: "App simples de anotações em Next.js",
-};
+import './globals.css'
+import Header from '../components/Header'
+import { NotesProvider } from '../components/NotesProvider'
 
-import Header from "@/components/Header";
-import "./globals.css";
+export const metadata = {
+  title: 'Checkpoint 4 - App de Anotações',
+  description: 'App simples em memória com Next.js',
+}
 
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
-      <body className="bg-gray-100 text-gray-900">
-        <Header />
-        <main className="max-w-2xl mx-auto p-4">{children}</main>
+      <body>
+        {/* NotesProvider mantém todas as notas apenas em memória */}
+        <NotesProvider>
+          <Header />
+          <main style={{ maxWidth: 800, margin: '0 auto', padding: '1rem' }}>
+            {children}
+          </main>
+        </NotesProvider>
       </body>
     </html>
-  );
+  )
 }

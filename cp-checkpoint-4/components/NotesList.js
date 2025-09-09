@@ -1,15 +1,17 @@
-import NoteItem from "./NoteItem";
+'use client'
 
-export default function NotesList({ notes, onDeleteNote }) {
-  if (notes.length === 0) {
-    return <p className="text-gray-500">Nenhuma anotação encontrada.</p>;
-  }
+import NoteItem from './NoteItem'
+
+export default function NotesList({ notes }) {
+  if (notes.length === 0) return <p>Nenhuma anotação encontrada.</p>
 
   return (
-    <ul className="space-y-2">
-      {notes.map((note) => (
-        <NoteItem key={note.id} note={note} onDeleteNote={onDeleteNote} />
+    <ul style={{ listStyle: 'none', padding: 0 }}>
+      {notes.map(note => (
+        <li key={note.id}>
+          <NoteItem note={note} />
+        </li>
       ))}
     </ul>
-  );
+  )
 }

@@ -1,17 +1,18 @@
-"use client";
-import { useParams } from "next/navigation";
-import { useState } from "react";
-import NoteDetail from "@/components/NoteDetail";
+'use client'
 
-export default function NoteDetailPage() {
-  const params = useParams();
-  const [notes] = useState([]); // vazio, pq ao atualizar a página perde os dados
+import { useParams } from 'next/navigation'
+import { useNotes } from '../../../components/NotesProvider'
+import NoteDetail from '../../../components/NoteDetail'
 
-  const note = notes.find((n) => n.id === params.id);
+// Página de detalhes de uma nota
+export default function NotePage() {
+  const params = useParams()
+  const { getNoteById } = useNotes()
+  const note = getNoteById(params.id)
 
-  return (
-    <div>
-      <NoteDetail note={note} />
-    </div>
-  );
+  if (!note) {
+    return <p>Nota não encontrada.</p>
+  }
+
+  return <NoteDetail note={note} />
 }
